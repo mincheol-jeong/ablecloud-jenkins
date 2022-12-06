@@ -42,21 +42,21 @@ pipeline {
        stage('Cockpit Build') {
            steps{
 
-               build 'cockpit'
+               build 'mcjeong-cockpit-test'
            }
        }
         
         stage('Cockpit-plugin Build') {
            steps{
 
-               build 'cockpit-plugin'
+               build 'mcjeong-cockpit-plugin-test'
            }
        }
 
         stage('Glue Build') {
             steps{
 
-                build 'glue-build'
+                build 'mcjeong-glue-test'
             }
        }
 
@@ -64,28 +64,28 @@ pipeline {
        stage('Glue Image Build And DockerHub Push') {
            steps{
 
-               build 'glue-image'
+               build 'mcjeong-glue-image-test'
            }
        }
 
         stage('Mold Build') {
             steps{
 
-                build 'mold'
+                build 'mcjeong-mold-test'
             }
         }
 
         stage('Netdive Build') {
             steps{
 
-                build 'netdive-ui'
+                build 'mcjeong-netdive-test'
             }
         }
 
         stage('Wall Build') {
             steps{
 
-                build 'wall-build'
+                build 'mcjeong-wall-test'
             }
         }
 
@@ -99,14 +99,14 @@ pipeline {
         stage('Ablestack Template Create') {
             steps{
 
-                build 'make-qcow2-template'
+                build 'mcjeong-template-test'
             }
         }
         
         stage('Ablestack ISO Create') {
             steps{
 
-                build 'ablestack-kickstart'
+                build 'mcjeong-kickstart-test'
             }
         }
         
