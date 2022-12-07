@@ -1,7 +1,7 @@
 import java.text.SimpleDateFormat
 def NEW_DATE = "null"
 pipeline {
-    agent {label 'mcjeong'}
+    agent any
 
     environment {
         JWF = '/mnt/jenkins-work'
@@ -13,7 +13,7 @@ pipeline {
     stages {
        stage('Version Change') {
            steps {
-               // build job : 'works_build_test'
+               
                script {
                    sh('rm -rf ${BRF}/*')
                    def versionInfo = readFile(file: '/mnt/jenkins-work/versionInfo.txt')
@@ -42,50 +42,58 @@ pipeline {
        stage('Cockpit Build') {
            steps{
 
-               build 'mcjeong-cockpit-test'
+               build 'cockpit'
            }
        }
         
         stage('Cockpit-plugin Build') {
            steps{
 
-               build 'mcjeong-cockpit-plugin-test'
+               build 'cockpit-plugin'
            }
        }
 
         stage('Glue Build') {
             steps{
 
-                build 'mcjeong-glue-test'
+                build 'glue-build'
             }
        }
 
+       stage('Glue RPM Copy to mirroring') {
+           steps{
+
+               sh("""ssh root@10.10.0.211 'rm -rf /root/mirror/data/centos/glue/*'""")
+               sh("""scp ${BRF}/*Glue*.rpm 10.10.0.211:/root/mirror/data/centos/glue""")
+               sh("""ssh root@10.10.0.211 'createrepo /root/mirror/data/centos/glue/.'""")
+           }
+       }
 
        stage('Glue Image Build And DockerHub Push') {
            steps{
 
-               build 'mcjeong-glue-image-test'
+               build 'glue-image'
            }
        }
 
         stage('Mold Build') {
             steps{
 
-                build 'mcjeong-mold-test'
+                build 'mold'
             }
         }
 
         stage('Netdive Build') {
             steps{
 
-                build 'mcjeong-netdive-test'
+                build 'netdive-ui'
             }
         }
 
         stage('Wall Build') {
             steps{
 
-                build 'mcjeong-wall-test'
+                build 'wall-build'
             }
         }
 
@@ -99,14 +107,14 @@ pipeline {
         stage('Ablestack Template Create') {
             steps{
 
-                build 'mcjeong-template-test'
+                build 'make-qcow2-template'
             }
         }
         
         stage('Ablestack ISO Create') {
             steps{
 
-                build 'mcjeong-kickstart-test'
+                build 'ablestack-kickstart'
             }
         }
         
