@@ -63,9 +63,9 @@ pipeline {
        stage('Glue RPM Copy to mirroring') {
            steps{
 
-               sh("""ssh root@10.10.0.211 'rm -rf /root/mirror/data/centos/glue/*'""")
-               sh("""scp ${BRF}/*Glue*.rpm 10.10.0.211:/root/mirror/data/centos/glue""")
-               sh("""ssh root@10.10.0.211 'createrepo /root/mirror/data/centos/glue/.'""")
+               sh("""'rm -rf /root/mirror/data/centos/glue/*' """)
+               sh(""" cp ${BRF}/*Glue*.rpm /root/mirror/data/centos/glue """)
+               sh(""" 'createrepo /root/mirror/data/centos/glue/.' """)
            }
        }
 
