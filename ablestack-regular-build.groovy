@@ -64,7 +64,7 @@ pipeline {
            steps{
 
                sh(""" 'rm -rf /root/mirror/data/centos/glue/*' """)
-               sh(""" cp ${BRF}/*Glue*.rpm /root/mirror/data/centos/glue """)
+               sh(""" cp -rf ${BRF}/*Glue*.rpm /root/mirror/data/centos/glue """)
                sh(""" 'createrepo /root/mirror/data/centos/glue/.' """)
            }
        }
