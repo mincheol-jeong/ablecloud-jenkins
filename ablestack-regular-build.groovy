@@ -1,7 +1,7 @@
 import java.text.SimpleDateFormat
 def NEW_DATE = "null"
 pipeline {
-    agent any
+    agent {label 'mcjeong'}
 
     environment {
         JWF = '/mnt/jenkins-work'
