@@ -22,7 +22,6 @@ pipeline {
                    println(codeName+version+date)
                    def (a,b,c) = version.split('\\.')
                    int intC = c as int
-                   intC = intC +1
                    println(intC)
                    def dateFormat = new SimpleDateFormat('yyMMdd')
                    def today = new Date()
